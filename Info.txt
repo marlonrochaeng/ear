@@ -1,0 +1,10 @@
+1 - representação do individuo:
+    Cada job vai ser iniciado com um valor de tempo de execução entre 1 e 100 unidades de tempo
+    Vetor respota: vetor de inteiros onde a posição é o job e a informação é a máquina.
+    
+2 - geração pop. inicial
+    fitness values - makespan (1 objetivo inicialmente)
+    calcular makespan do vetor (index - job/machine value)
+    montar matriz com 70% de individuos
+    para cada job - montar roleta
+    determina a maquina para cada execução da roleta
