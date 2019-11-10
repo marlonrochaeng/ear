@@ -1,6 +1,6 @@
-class Machine:
+class Individual:
     def __init__(self):
-        self.work_load = 0
+        pass
     
-    def add_work(self, work):
-        self.work_load += work
+    def get_makespan(self, work):
+        pass
