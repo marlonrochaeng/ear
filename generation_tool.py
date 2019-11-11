@@ -59,21 +59,23 @@ class GenerationTool:
         worktime['individual'] = individual
         return worktime
 
-    def order_population_by_worktime(self):
+    def order_population_by_worktime(self, to_sort):
         """Este metodo retorna a lista de populacao ordenada de forma crescente 
         onde o valor utilizado para comparacao eh o makespan
 
         Returns:
             [list of object] 
         """
-        return sorted(self.population_worktime, key=lambda i: i['makespan'])
+        return sorted(to_sort, key=lambda i: i['makespan'])
 
     def update_to_best_population(self):
         """Este metodo salva a populacao atual e deleta os 30% menos interessantes 
         """
         self.populations.append(self.ordered_pop[:])
         self.ordered_pop = self.ordered_pop[0:self.best_candidates_len]
-        print("tamanho apos pegar melhores valores:", len(self.ordered_pop))
+        print("TAMANHO DA POPULACAO APOS RECUPERAR MELHORES VALORES:",
+              len(self.ordered_pop))
+        print("QUANTIDADE DE INDIVIDUOS QUE SERAO GERADOS:",self.new_pop_len)
 
     def generate_matrix(self):
         """Este metodo gera a matriz de probabilidades
@@ -122,26 +124,29 @@ class GenerationTool:
         random.shuffle(self.ordered_pop)
 
     def call_functions(self):
-        self.ordered_pop = self.order_population_by_worktime()
-        print("POPULATION ORDERED BY MAKESPAN")
+        self.ordered_pop = self.order_population_by_worktime(
+            self.population_worktime)
+        print("FIRST POPULATION ORDERED BY MAKESPAN")
         for i in self.ordered_pop:
-            print(i['individual'])
+            print(i['individual'], i['makespan'])
         temp = self.ordered_pop[:]
         self.update_to_best_population()
         self.initialize_matrix()
         self.generate_matrix()
         print("PROBABILISTC MATRIX")
-        # self.print_matrix()
+        self.print_matrix()
         print("GENERATING THE NEW INDIVIDUALS AND ADDING TO THE NEW POPULATION")
         for i in range(self.new_pop_len):
             new_individual = []
             for i in self.pb:
                 new_individual.append(self.wheel_selection(i))
+            print("new individual:", new_individual)
             self.update_new_pop(new_individual)
         #print("SHUFFLE THE POPULATION")
         # self.suffle_pop()
-        self.ordered_pop = self.order_population_by_worktime()
+        #self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
+        print("NEW POPULATION ORDERED BY MAKESPAN")
         for i in self.ordered_pop:
-            print(i['individual'])
+            print(i['individual'], i['makespan'])
         print("NEW POPULATION SIZE:", len(self.ordered_pop))
         print(temp == self.ordered_pop)
