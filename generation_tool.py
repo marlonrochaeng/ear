@@ -75,7 +75,7 @@ class GenerationTool:
         self.ordered_pop = self.ordered_pop[0:self.best_candidates_len]
         print("TAMANHO DA POPULACAO APOS RECUPERAR MELHORES VALORES:",
               len(self.ordered_pop))
-        print("QUANTIDADE DE INDIVIDUOS QUE SERAO GERADOS:",self.new_pop_len)
+        print("QUANTIDADE DE INDIVIDUOS QUE SERAO GERADOS:", self.new_pop_len)
 
     def generate_matrix(self):
         """Este metodo gera a matriz de probabilidades
@@ -144,7 +144,7 @@ class GenerationTool:
             self.update_new_pop(new_individual)
         #print("SHUFFLE THE POPULATION")
         # self.suffle_pop()
-        #self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
+        self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
         print("NEW POPULATION ORDERED BY MAKESPAN")
         for i in self.ordered_pop:
             print(i['individual'], i['makespan'])
