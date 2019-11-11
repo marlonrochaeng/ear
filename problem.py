@@ -2,7 +2,7 @@ from generation_tool import GenerationTool
 from job import Job
 from utils import generate_population, get_instance
 
-iterations = 100
+iterations = 10
 
 pop_size = 10
 population = []
@@ -17,5 +17,10 @@ for i in range(pop_size):
 g = GenerationTool(num_machines, population, jobs)
 g.calculate_individual_worktime()
 
-# for i in range(iterations):
-g.call_functions()
+g.first_gen()
+
+for i in range(iterations):
+    g.create_new_gen(i)
+
+#g.print_generations()
+g.get_makespan_generations()

@@ -123,13 +123,14 @@ class GenerationTool:
     def suffle_pop(self):
         random.shuffle(self.ordered_pop)
 
-    def call_functions(self):
+    def first_gen(self):
         self.ordered_pop = self.order_population_by_worktime(
             self.population_worktime)
-        print("FIRST POPULATION ORDERED BY MAKESPAN")
+        print("1 POPULATION ORDERED BY MAKESPAN")
         for i in self.ordered_pop:
             print(i['individual'], i['makespan'])
-        temp = self.ordered_pop[:]
+
+    def create_new_gen(self, num_gen):
         self.update_to_best_population()
         self.initialize_matrix()
         self.generate_matrix()
@@ -142,11 +143,23 @@ class GenerationTool:
                 new_individual.append(self.wheel_selection(i))
             print("new individual:", new_individual)
             self.update_new_pop(new_individual)
-        #print("SHUFFLE THE POPULATION")
-        # self.suffle_pop()
         self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
-        print("NEW POPULATION ORDERED BY MAKESPAN")
+        print(str(num_gen+1)+" POPULATION ORDERED BY MAKESPAN")
         for i in self.ordered_pop:
             print(i['individual'], i['makespan'])
         print("NEW POPULATION SIZE:", len(self.ordered_pop))
-        print(temp == self.ordered_pop)
+
+    def print_generations(self):
+        for i in range(len(self.populations)):
+            print("----------------printing the "+str(i+1) +
+                  " population-------------------------\n")
+            print(self.populations[i])
+
+    def get_makespan_generations(self):
+        makespans = []
+        for i in self.populations:
+            soma = 0
+            for j in i:
+                soma += j['makespan'][0]
+            makespans.append(soma)
+        return makespans
