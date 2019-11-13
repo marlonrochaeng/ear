@@ -1,11 +1,12 @@
 from random import randint
 
-class Job:
-    def __init__(self):
-        self.work_time = randint(1,100)
 
-    def __str__(self):
-            return("work_time: "+str(self.work_time))
-    
-    def __repr__(self):
-        return str(self)
+class JobMachine:
+    def __init__(self, num_jobs):
+        self.jobs = [dict()] * num_jobs
+
+    def set_wt(self, job, machine, work):
+        self.jobs[job][machine] = work
+
+    def get_jm_value(self, job, machine):
+        return self.jobs[job][machine]

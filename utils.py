@@ -1,4 +1,6 @@
 from random import randint
+
+
 def get_instance(instance):
     """Esse metodo retorna as instancias de processos e maquinas do problema HCSP
     
@@ -10,8 +12,8 @@ def get_instance(instance):
                                 2048 , 64
                                 ...
     """
-    #return 1024*pow(2,instance),32*pow(2,instance)
-    return 24,8
+    return 1024*pow(2,instance),32*pow(2,instance)
+    #return 24,8
 
 def generate_population(num_jobs, num_machines):
     """Esse metodo retorna uma geracao de jobs alocados em maquinas
@@ -22,4 +24,3 @@ def generate_population(num_jobs, num_machines):
     """
     gen = [randint(0,num_machines-1) for i in range(num_jobs)]
     return gen
-

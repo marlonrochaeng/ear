@@ -4,11 +4,12 @@ import random
 
 
 class GenerationTool:
-    def __init__(self, num_machines, population, jobs):
+    def __init__(self, num_jobs, num_machines, population, job_machine_time):
         self.population = population
+        self.num_jobs = num_jobs
         self.num_machines = num_machines
         self.population_worktime = []
-        self.jobs = jobs
+        self.job_machine_time = job_machine_time
         self.ordered_pop = {}
         self.pb = []
         self.best_candidates_len = len(
@@ -23,17 +24,20 @@ class GenerationTool:
             [list of list[int]] -- 
         """
         self.pb = [[0 for col in range(self.num_machines)]
-                   for row in range(len(self.jobs))]
+                   for row in range(self.num_jobs)]
 
     def calculate_individual_worktime(self):
         """esse metodo percorre a populacao e verifica o makespan e worktime para cada maquina em cada individuo
+        i = job
+        p[i] = maquina
         """
         for p in self.population:
             machine_job_relationship = {}
             for i in range(self.num_machines):
                 machine_job_relationship[i] = []
             for i in range(len(p)):
-                machine_job_relationship[p[i]].append(self.jobs[i])
+                machine_job_relationship[p[i]].append(
+                    self.job_machine_time.get_jm_value(i, p[i]))
             self.population_worktime.append(
                 self.get_population_worktime(machine_job_relationship, p))
 
@@ -51,7 +55,7 @@ class GenerationTool:
         for m in range(self.num_machines):
             soma = 0
             for i in machine_job_relationship[m]:
-                soma += i.work_time
+                soma += i
             worktime[m] = soma
             worktime[m]
         worktime['makespan'] = max([(value, key)
@@ -116,7 +120,7 @@ class GenerationTool:
         for i in range(self.num_machines):
             machine_job_relationship[i] = []
         for i in range(len(new_individual)):
-            machine_job_relationship[new_individual[i]].append(self.jobs[i])
+            machine_job_relationship[new_individual[i]].append(self.job_machine_time.get_jm_value(i, new_individual[i]))
         self.ordered_pop.append(self.get_population_worktime(
             machine_job_relationship, new_individual))
 
@@ -134,8 +138,8 @@ class GenerationTool:
         self.update_to_best_population()
         self.initialize_matrix()
         self.generate_matrix()
-        print("PROBABILISTC MATRIX")
-        self.print_matrix()
+        #print("PROBABILISTC MATRIX")
+        #self.print_matrix()
         print("GENERATING THE NEW INDIVIDUALS AND ADDING TO THE NEW POPULATION")
         for i in range(self.new_pop_len):
             new_individual = []
@@ -154,12 +158,3 @@ class GenerationTool:
             print("----------------printing the "+str(i+1) +
                   " population-------------------------\n")
             print(self.populations[i])
-
-    def get_makespan_generations(self):
-        makespans = []
-        for i in self.populations:
-            soma = 0
-            for j in i:
-                soma += j['makespan'][0]
-            makespans.append(soma)
-        return makespans
