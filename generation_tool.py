@@ -12,9 +12,9 @@ class GenerationTool:
         self.job_machine_time = job_machine_time
         self.ordered_pop = {}
         self.pb = []
-        self.best_candidates_len = len(
-            population) - math.floor(0.3*len(population))
-        self.new_pop_len = len(population) - self.best_candidates_len
+        self.best_candidates_len = int(len(
+            population) - math.floor(0.3*len(population)))
+        self.new_pop_len = int(len(population) - self.best_candidates_len)
         self.populations = []
 
     def initialize_matrix(self):
@@ -76,6 +76,7 @@ class GenerationTool:
         """Este metodo salva a populacao atual e deleta os 30% menos interessantes 
         """
         self.populations.append(self.ordered_pop[:])
+        print("tipo:",type(self.best_candidates_len))
         self.ordered_pop = self.ordered_pop[0:self.best_candidates_len]
         print("TAMANHO DA POPULACAO APOS RECUPERAR MELHORES VALORES:",
               len(self.ordered_pop))

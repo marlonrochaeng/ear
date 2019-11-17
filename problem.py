@@ -2,12 +2,12 @@ from generation_tool import GenerationTool
 from job import JobMachine
 from utils import generate_population, get_instance
 
-iterations = 100
+iterations = 10
 
 pop_size = 10
 population = []
 
-file = list(open("C:\\Users\\malencar\\Downloads\\1024x32\\Acopy.u_c_hihi"))
+file = list(open("1024x32/Acopy.u_c_hihi"))
 
 num_jobs, num_machines = int(file[0].split(' ')[0]), int(
     file[0].split(' ')[1])  # get_instance(0)
