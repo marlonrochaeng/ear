@@ -6,10 +6,10 @@ from utils import generate_population, get_instance
 
 iterations = 10
 
-pop_size = 10
+pop_size = 5
 population = []
 
-file = list(open(os.path.join("1024x32", "Acopy.u_c_hihi")))
+file = list(open(os.path.join("1024x32", "A.u_c_hihi")))
 
 num_jobs, num_machines = int(file[0].split(' ')[0]), int(
     file[0].split(' ')[1])  # get_instance(0)
@@ -37,3 +37,5 @@ g.first_gen()
 
 for i in range(iterations):
     g.create_new_gen(i)
+
+g.print_generations()

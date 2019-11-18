@@ -6,3 +6,19 @@
 5 - Para cada job (linha na matriz) - montar roleta (um novo indivíduo deve ser gerado toda sempre que percorremos todas as linhas da matriz)
 6 - Adicionar os novos indivíduos na população
 7 - Refazer os passos 3-6 algumas vezes (ex: 100 iterações)
+
+Testar roleta
+    verificar distribuição dos dados da roleta
+Verificar índices
+    job x maquina
+    verificar se os indices não divergem
+Validar matriz de probabilidades
+Testar com valores menores
+Testar  
+    iterações: 10, 50, 100, 200...
+    tamanho da população: 10, 50, 100, 500, 1000
+    testar com arquivos 2048, 4096
+Guardar:
+    worktime de todas as poulações
+
+

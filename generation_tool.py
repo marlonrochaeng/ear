@@ -139,8 +139,8 @@ class GenerationTool:
         self.update_to_best_population()
         self.initialize_matrix()
         self.generate_matrix()
-        #print("PROBABILISTC MATRIX")
-        #self.print_matrix()
+        print("PROBABILISTC MATRIX")
+        self.print_matrix()
         print("GENERATING THE NEW INDIVIDUALS AND ADDING TO THE NEW POPULATION")
         for i in range(self.new_pop_len):
             new_individual = []
@@ -158,4 +158,4 @@ class GenerationTool:
         for i in range(len(self.populations)):
             print("----------------printing the "+str(i+1) +
                   " population-------------------------\n")
-            print(self.populations[i])
+            print(self.populations[i][1]['makespan'])
