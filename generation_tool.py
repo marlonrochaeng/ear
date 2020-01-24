@@ -99,6 +99,12 @@ class GenerationTool:
             for i in range(len(op['individual'])):
                 self.pb[i][op['individual'][i]] += 1
 
+    def ajust_zero_elements(self):
+        for op in self.ordered_pop:
+            for i in range(len(op['individual'])):
+                if self.pb[i][op['individual'][i]] == 0:
+                    self.pb[i][op['individual'][i]] += 0.1
+
     def print_matrix(self):
         for i in self.pb:
             print(i)
@@ -151,6 +157,7 @@ class GenerationTool:
         self.update_to_best_population()
         self.initialize_matrix()
         self.generate_matrix()
+        self.ajust_zero_elements()
         #print("PROBABILISTC MATRIX")
         # self.print_matrix()
         print("GENERATING THE NEW INDIVIDUALS AND ADDING TO THE NEW POPULATION")

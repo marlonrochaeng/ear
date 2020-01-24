@@ -31,7 +31,7 @@ def generate_population(num_jobs, num_machines):
 
 
 def create_csv(num_jobs, num_machines, pop, iteration_size, populations_makespan, instance_name):
-    filename = 'csv//' + str(pop) + '_' + str(iteration_size)+ '_' + strftime("%Y-%m-%d-%H-%M-%S", gmtime()) + \
+    filename = 'csv_1024_32//' + str(pop) + '_' + str(iteration_size)+ '_' + strftime("%Y-%m-%d-%H-%M-%S", gmtime()) + \
         '_' + instance_name + '_' + '.csv'
     info_list = []
     csv_columns = ['FILE_NAME', 'NUM_JOBS',
