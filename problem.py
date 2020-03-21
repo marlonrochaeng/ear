@@ -4,19 +4,16 @@ from generation_tool import GenerationTool
 from job import JobMachine
 from utils import generate_population, get_files, get_instance
 
-"""
-change this file and get_files to 512, 2048, etc
-"""
 
-iterations = [10,  50, 100, 200, 300, 400, 500, 1000]
+iterations = [500, 1000]#[5, 10, 50, 100, 250, 500]
 
-pop_size = [5, 10, 50, 100, 250, 500, 600, 750, 1000]
+pop_size = [500, 1000]#[5, 10, 50, 100, 250, 500]
 
 files = get_files()
 
 for file_name in files:
 
-    file = list(open(os.path.join("1024x32", file_name)))
+    file = list(open(os.path.join("512_16", file_name)))
     num_jobs, num_machines = int(file[0].split(' ')[0]), int(
         file[0].split(' ')[1])
 

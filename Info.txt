@@ -20,4 +20,16 @@
 5 - Guardar:
     worktime de todas as poulações
 
+=================================================================
+To do
 
+    - Aumentar os parâmetros de iteração e tamanho da população
+    - Gerar a primeira população com muitos indivíduos (primeiras) e selecionar futuramente os melhores baseando-se no parametro
+    - Verifciar Mersenne Twister para geração de números aleatórios
+    - Multiobjetivo
+        - Flowtime
+        - Utilização
+        - Diferença
+        - Atraso
+    - Várias execuções e análise (posterior)
+    

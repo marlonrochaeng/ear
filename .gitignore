@@ -1,2 +1,8 @@
 *.pyc
 __pycache__/
+EAR/
+.vscode/
+.ipynb_checkpoints/
+csv_experiment/
+1024_32/
+512_16/
