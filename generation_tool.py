@@ -14,9 +14,11 @@ class GenerationTool:
         self.job_machine_time = job_machine_time
         self.ordered_pop = {}
         self.pb = []
-        self.best_candidates_len = int(len(
-            population) - math.floor(0.3*len(population)))
-        self.new_pop_len = int(len(population) - self.best_candidates_len)
+        self.best_candidates_len = int((len(
+            population) - math.floor(0.3*len(population)))/10)
+        print("BEST CANDIDATES LEN:" + str(self.best_candidates_len))
+        self.new_pop_len = int((len(population)/10 - self.best_candidates_len))
+        print("NEW POP LEN:" + str(self.new_pop_len))
         self.populations = []
         self.populations_makespan = {}
         for i in range(1, iteration+2):
@@ -40,6 +42,7 @@ class GenerationTool:
         i = job
         p[i] = maquina
         """
+        print("TAMANHO DA 1 POPULAÇÃO: %d" %len(self.population))
         for p in self.population:
             machine_job_relationship = {}
             for i in range(self.num_machines):
@@ -85,7 +88,7 @@ class GenerationTool:
         """Este metodo salva a populacao atual e deleta os 30% menos interessantes 
         """
         self.populations.append(self.ordered_pop[:])
-        print("tipo:", type(self.best_candidates_len))
+        #print("tipo:", type(self.best_candidates_len))
         self.ordered_pop = self.ordered_pop[0:self.best_candidates_len]
         print("TAMANHO DA POPULACAO APOS RECUPERAR MELHORES VALORES:",
               len(self.ordered_pop))
@@ -147,13 +150,15 @@ class GenerationTool:
     def first_gen(self):
         self.ordered_pop = self.order_population_by_worktime(
             self.population_worktime)
-        print("1 POPULATION ORDERED BY MAKESPAN")
+        print("ORDERED POP LEN: %d" %len(self.ordered_pop))
+        #print("1 POPULATION ORDERED BY MAKESPAN")
         for i in self.ordered_pop:
-            print(i['individual'], i['makespan'])
+            #print(i['individual'], i['makespan'])
             self.populations_makespan[1].append(i['makespan'])
         self.populations_makespan[1].append(i['makespan'][0])
 
     def create_new_gen(self, num_gen):
+        self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
         self.update_to_best_population()
         self.initialize_matrix()
         self.generate_matrix()
@@ -165,14 +170,14 @@ class GenerationTool:
             new_individual = []
             for j in self.pb:
                 new_individual.append(self.wheel_selection(j))
-            print("new individual:", new_individual)
+            #print("new individual:", new_individual)
             self.update_new_pop(new_individual)
         self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
         self.populations_makespan[num_gen +
                                   1].append(self.ordered_pop[-1]['makespan'][0])
-        print(str(num_gen+1)+" POPULATION ORDERED BY MAKESPAN")
-        for i in self.ordered_pop:
-            print(i['individual'], i['makespan'])
+        #print(str(num_gen+1)+" POPULATION ORDERED BY MAKESPAN")
+        #for i in self.ordered_pop:
+        #    print(i['individual'], i['makespan'])
         print("NEW POPULATION SIZE:", len(self.ordered_pop))
 
     def print_generations(self):

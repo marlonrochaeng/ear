@@ -2,6 +2,7 @@ import csv
 import os
 from random import randint
 from time import gmtime, strftime
+from numpy.random import Generator, MT19937, SeedSequence
 
 
 def get_instance(instance):
@@ -26,7 +27,12 @@ def generate_population(num_jobs, num_machines):
         num_jobs {int} -- quantidade de jobs da instancia
         num_machines {int} -- quantidade de maquinas da instancia
     """
-    gen = [randint(0, num_machines-1) for i in range(num_jobs)]
+    sg = SeedSequence()
+    rg = [Generator(MT19937(s)) for s in sg.spawn(5)]
+
+    gerador = rg[0]
+
+    gen = [gerador.integers(0, num_machines-1) for i in range(num_jobs)]
     return gen
 
 
