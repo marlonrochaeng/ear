@@ -1,0 +1,17 @@
+1 - get files
+    o path é salvo em uma string processo_maquina -> mudar para argumento
+    retorna a lista de arquivos dentro da pasta (cada arquivo é uma instancia do problema)
+
+2 - para cada arquivo (instancia)
+    * abre o arquivo
+    * divide em numero de processos e numero de maquinas
+    carrego o work time de todas as linhas
+
+    uma instancia da classe job machine é criada (lista de dict do tamanho de jobs)
+    para cada job e maquina, aquela carga é atribuida a uma relação job_maquina
+
+    para cada iteracao
+        para cada tamanho da populacao
+            gero a primeira populacao com um numero grande e depois seleciono so os melhores
+
+            crio uma instancia do generationTool

@@ -5,9 +5,9 @@ from job import JobMachine
 from utils import generate_population, get_files, get_instance
 
 
-iterations = [5, 10, 50, 100, 250, 500, 1000]
+iterations = [5000]
 
-pop_size = [5, 10, 50, 100, 250, 500, 1000]
+pop_size = [1000]
 
 files = get_files()
 
@@ -20,7 +20,9 @@ for file_name in files:
     wt = [float(i) for i in file[1::]]
 
     job_machine_time = JobMachine(num_jobs)
+
     jm_count = 0
+
     for n in range(num_jobs):
         for p in range(num_machines):
             job_machine_time.set_wt(p, n, wt[jm_count])
@@ -31,7 +33,6 @@ for file_name in files:
             population = []
             for i in range(pop*10):
                 population.append(generate_population(num_jobs, num_machines))
-            
             
 
             g = GenerationTool(num_jobs, num_machines, population,

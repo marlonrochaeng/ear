@@ -162,7 +162,7 @@ class GenerationTool:
         self.update_to_best_population()
         self.initialize_matrix()
         self.generate_matrix()
-        self.ajust_zero_elements()
+        #self.ajust_zero_elements()
         #print("PROBABILISTC MATRIX")
         # self.print_matrix()
         print("GENERATING THE NEW INDIVIDUALS AND ADDING TO THE NEW POPULATION")

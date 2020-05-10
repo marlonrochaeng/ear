@@ -58,10 +58,12 @@ def create_csv(num_jobs, num_machines, pop, iteration_size, populations_makespan
 def get_files():
     path = '512_16'
 
+
+
     files = []
     # r=root, d=directories, f = files
     for r, d, f in os.walk(path):
         for file in f:
-            files.append(os.path.join(r, file).split('\\')[1])
+            files.append(os.path.join(r, file).split('/')[1])
 
     return files
