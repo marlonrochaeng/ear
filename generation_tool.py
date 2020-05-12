@@ -15,10 +15,10 @@ class GenerationTool:
         self.ordered_pop = {}
         self.pb = []
         self.best_candidates_len = int((len(
-            population) - math.floor(0.3*len(population)))/10)
-        print("BEST CANDIDATES LEN:" + str(self.best_candidates_len))
+            population) - math.floor(0.075*len(population)))/10)
+        #print("BEST CANDIDATES LEN:" + str(self.best_candidates_len))
         self.new_pop_len = int((len(population)/10 - self.best_candidates_len))
-        print("NEW POP LEN:" + str(self.new_pop_len))
+        #print("NEW POP LEN:" + str(self.new_pop_len))
         self.populations = []
         self.populations_makespan = {}
         for i in range(1, iteration+2):
@@ -42,7 +42,7 @@ class GenerationTool:
         i = job
         p[i] = maquina
         """
-        print("TAMANHO DA 1 POPULAÇÃO: %d" %len(self.population))
+        print("TAMANHO DA 1 POPULACAO: %d" %len(self.population))
         for p in self.population:
             machine_job_relationship = {}
             for i in range(self.num_machines):
@@ -89,10 +89,10 @@ class GenerationTool:
         """
         self.populations.append(self.ordered_pop[:])
         #print("tipo:", type(self.best_candidates_len))
-        self.ordered_pop = self.ordered_pop[0:self.best_candidates_len]
-        print("TAMANHO DA POPULACAO APOS RECUPERAR MELHORES VALORES:",
-              len(self.ordered_pop))
-        print("QUANTIDADE DE INDIVIDUOS QUE SERAO GERADOS:", self.new_pop_len)
+        #self.ordered_pop = self.ordered_pop[0:self.best_candidates_len]
+        #print("TAMANHO DA POPULACAO APOS RECUPERAR MELHORES VALORES:",
+        #      len(self.ordered_pop))
+        #print("QUANTIDADE DE INDIVIDUOS QUE SERAO GERADOS:", self.new_pop_len)
 
     def generate_matrix(self):
         """Este metodo gera a matriz de probabilidades
@@ -141,8 +141,19 @@ class GenerationTool:
         for i in range(len(new_individual)):
             machine_job_relationship[new_individual[i]].append(
                 self.job_machine_time.get_jm_value(i, new_individual[i]))
-        self.ordered_pop.append(self.get_population_worktime(
-            machine_job_relationship, new_individual))
+        #self.ordered_pop.append(self.get_population_worktime(
+        #    machine_job_relationship, new_individual))
+        #
+        
+        self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
+        for i in range(len(self.ordered_pop)-1,0,-1):#pegar algum dos 5% pior na sorte e substituir se for melhor
+            #print("i['makespan']:", i['makespan'][0])
+            #print("self.get_population_worktime(machine_job_relationship, new_individual):", self.get_population_worktime(machine_job_relationship, new_individual)['makespan'][0])
+            if self.ordered_pop[i]['makespan'][0] > self.get_population_worktime(machine_job_relationship, new_individual)['makespan'][0]:
+                print("trocou!")
+                self.ordered_pop[i] = self.get_population_worktime(machine_job_relationship, new_individual)
+                break
+
 
     def suffle_pop(self):
         random.shuffle(self.ordered_pop)
@@ -156,6 +167,7 @@ class GenerationTool:
             #print(i['individual'], i['makespan'])
             self.populations_makespan[1].append(i['makespan'])
         self.populations_makespan[1].append(i['makespan'][0])
+        self.ordered_pop = self.ordered_pop[0:int(len(self.ordered_pop)/10)]
 
     def create_new_gen(self, num_gen):
         self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
@@ -187,9 +199,9 @@ class GenerationTool:
             print(self.populations[i][1]['makespan'][0])
 
     def print_generations_makespan(self):
-        print("POPULATION MAKESPAN\n")
+        #print("POPULATION MAKESPAN\n")
         self.populations_makespan[1] = self.populations_makespan[1][-1]
-        print(self.populations_makespan)
+        #print(self.populations_makespan)
         create_csv(self.num_jobs, self.num_machines, self.pop, self.iteration,
                    self.populations_makespan, self.instance_name)
         # num_jobs, num_machines, iterations, pop, iteration, makespan

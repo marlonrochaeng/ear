@@ -11,7 +11,9 @@ pop_size = [1000]
 
 files = get_files()
 
-for file_name in files:
+print(files)
+
+for file_name in files[1::]:
 
     file = list(open(os.path.join("512_16", file_name)))
     num_jobs, num_machines = int(file[0].split(' ')[0]), int(
@@ -46,6 +48,7 @@ for file_name in files:
             g.first_gen()
 
             for i in range(1, iteration+1):
+                print("Iteration: %d" %i)
                 g.create_new_gen(i)
 
             #g.print_generations()

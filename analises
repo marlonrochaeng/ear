@@ -1,0 +1,26 @@
+5000 iterações
+1000 população
+
+u_c_hihi
+    literatura entre        7381570 e 10249174
+    meu algoritmo 5%                 *21357413
+        5% + troca se for melhor     *16941837
+
+
+u_c_lohi
+    literatura entre        239260 e 337121
+    meu algoritmo 5%                *476876
+        5% + troca se for melhor    *367361
+    7.5% + troca se for melhor      *362273
+
+u_c_hilo
+    literatura entre        53105 e 168982
+    meu algoritmo 5%               *549899
+        5% + troca se for melhor   *439817
+    7.5% + troca se for melhor     *436684
+
+
+u_c_lolo
+    literatura entre        5147 e 5658
+    meu algoritmo 5%              *15506
+        5% + troca se for melhor  *12401
