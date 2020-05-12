@@ -4,16 +4,17 @@ from generation_tool import GenerationTool
 from job import JobMachine
 from utils import generate_population, get_files, get_instance
 
+from multiprocessing import Pool
 
 iterations = [5000]
 
 pop_size = [1000]
 
-files = get_files()
+files = get_files()[1::]
 
 print(files)
 
-for file_name in files[1::]:
+def schedule(file_name):
 
     file = list(open(os.path.join("512_16", file_name)))
     num_jobs, num_machines = int(file[0].split(' ')[0]), int(
@@ -54,3 +55,7 @@ for file_name in files[1::]:
             #g.print_generations()
             
             g.print_generations_makespan()
+
+if __name__ == '__main__':
+    with Pool(4) as p:
+        print(p.map(schedule, files))
