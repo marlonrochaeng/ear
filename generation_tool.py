@@ -15,7 +15,7 @@ class GenerationTool:
         self.ordered_pop = {}
         self.pb = []
         self.best_candidates_len = int((len(
-            population) - math.floor(0.075*len(population)))/10)
+            population) - math.floor(0.3*len(population)))/10)
         #print("BEST CANDIDATES LEN:" + str(self.best_candidates_len))
         self.new_pop_len = int((len(population)/10 - self.best_candidates_len))
         #print("NEW POP LEN:" + str(self.new_pop_len))
@@ -146,13 +146,13 @@ class GenerationTool:
         #
         
         self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
-        for i in range(len(self.ordered_pop)-1,0,-1):#pegar algum dos 5% pior na sorte e substituir se for melhor
+        #for i in range(len(self.ordered_pop)-1,0,-1):#pegar algum dos 5% pior na sorte e substituir se for melhor
             #print("i['makespan']:", i['makespan'][0])
             #print("self.get_population_worktime(machine_job_relationship, new_individual):", self.get_population_worktime(machine_job_relationship, new_individual)['makespan'][0])
-            if self.ordered_pop[i]['makespan'][0] > self.get_population_worktime(machine_job_relationship, new_individual)['makespan'][0]:
-                print("trocou!")
-                self.ordered_pop[i] = self.get_population_worktime(machine_job_relationship, new_individual)
-                break
+        if self.ordered_pop[-1]['makespan'][0] > self.get_population_worktime(machine_job_relationship, new_individual)['makespan'][0]:
+            print("trocou!")
+            self.ordered_pop[-1] = self.get_population_worktime(machine_job_relationship, new_individual)
+            
 
 
     def suffle_pop(self):
