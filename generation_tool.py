@@ -15,7 +15,7 @@ class GenerationTool:
         self.ordered_pop = {}
         self.pb = []
         self.best_candidates_len = int((len(
-            population) - math.floor(0.3*len(population)))/10)
+            population) - math.floor(0.35*len(population)))/10)
         #print("BEST CANDIDATES LEN:" + str(self.best_candidates_len))
         self.new_pop_len = int((len(population)/10 - self.best_candidates_len))
         #print("NEW POP LEN:" + str(self.new_pop_len))
