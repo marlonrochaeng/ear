@@ -57,5 +57,5 @@ def schedule(file_name):
             g.print_generations_makespan()
 
 if __name__ == '__main__':
-    with Pool(4) as p:
+    with Pool(8) as p:
         print(p.map(schedule, files))
