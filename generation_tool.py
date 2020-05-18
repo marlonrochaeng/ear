@@ -15,7 +15,7 @@ class GenerationTool:
         self.ordered_pop = {}
         self.pb = []
         self.best_candidates_len = int((len(
-            population) - math.floor(0.35*len(population)))/10)
+            population) - math.floor(0.3*len(population)))/10)
         #print("BEST CANDIDATES LEN:" + str(self.best_candidates_len))
         self.new_pop_len = int((len(population)/10 - self.best_candidates_len))
         #print("NEW POP LEN:" + str(self.new_pop_len))
@@ -98,7 +98,7 @@ class GenerationTool:
         """Este metodo gera a matriz de probabilidades
 
         """
-        for op in self.ordered_pop:
+        for op in self.ordered_pop[:self.best_candidates_len]:
             for i in range(len(op['individual'])):
                 self.pb[i][op['individual'][i]] += 1
 
