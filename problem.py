@@ -8,7 +8,7 @@ from multiprocessing import Pool
 
 iterations = [5000]
 
-pop_size = [1000]
+pop_size = [2000]
 
 files = get_files()[1::]
 
