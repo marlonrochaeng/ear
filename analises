@@ -3,40 +3,31 @@
 
 u_c_hihi
     literatura entre        7381570 e 10249174
-    meu algoritmo 5%                 *21357413
-        5% + troca se for melhor     *16941837
-        7.5% + troca se for ...      *16823420
-        10% + troca...               *16703372
-        20% _ troca...               *16588460
-        30%                          *16546739
+    30%                          *16546739
+    last_release                 *16615723
+        40/60                    *16621617
+        50/50                    *16581372
 
 u_c_lohi
     literatura entre        239260 e 337121
-    meu algoritmo 5%                *476876
-        5% + troca se for melhor    *367361
-    7.5% + troca se for melhor      *362273
-    10% + troca se for melhor       *360237
-    20% _ troca...                  *358202
     30%                             *357185
+    last_release                    *357657
+        40/60                       *358202
+        50/50                       *357185
+
 
 u_c_hilo
     literatura entre        53105 e 168982
-    meu algoritmo 5%               *549899
-        5% + troca se for melhor   *439817
-    7.5% + troca se for melhor     *436684
-    10% + troca...                 *432282
-    20% _ troca...                 *430280
-    30%                            *427583
     35%                            *427259
+    last_release                   *430280
+        40/60                      *432282
+        50/50                      *414573
 
 
 u_c_lolo
     literatura entre        5147 e 5658
-    meu algoritmo 5%              *15506
-        5% + troca se for melhor  *12401
-        7.5+ troca...             *12307
-        10% + troca...            *12219
-        20% _ troca...            *12127
-        30%                       *12054
-
+    30%                       *12054
+    last_release              *12138
+        40/60                 *12193
+        50/50                 *11857
 

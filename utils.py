@@ -32,7 +32,7 @@ def generate_population(num_jobs, num_machines):
 
     gerador = rg[0]
 
-    gen = [gerador.integers(0, num_machines-1) for i in range(num_jobs)]
+    gen = [gerador.integers(0, num_machines) for i in range(num_jobs)]
     return gen
 
 

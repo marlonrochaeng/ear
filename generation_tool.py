@@ -14,9 +14,15 @@ class GenerationTool:
         self.job_machine_time = job_machine_time
         self.ordered_pop = {}
         self.pb = []
+        self.best_matrix_len = int((len(
+            population) - math.floor(0.7*len(population)))/10)
         self.best_candidates_len = int((len(
-            population) - math.floor(0.3*len(population)))/10)
-        #print("BEST CANDIDATES LEN:" + str(self.best_candidates_len))
+            population) - math.floor(0.5*len(population)))/10)
+        self.best_candidates_len_c = int((len(
+            population) - math.floor(0.5*len(population)))/10)
+        print("BEST MATRIX LEN:" + str(self.best_matrix_len))
+        print("BEST CANDIDATES LEN:" + str(self.best_candidates_len))
+        print("BEST CANDIDATES LEN C:" + str(self.best_candidates_len_c))
         self.new_pop_len = int((len(population)/10 - self.best_candidates_len))
         #print("NEW POP LEN:" + str(self.new_pop_len))
         self.populations = []
@@ -36,6 +42,7 @@ class GenerationTool:
         """
         self.pb = [[0 for col in range(self.num_machines)]
                    for row in range(self.num_jobs)]
+        print("num machines {} num jobs {}".format(self.num_machines,self.num_jobs))
 
     def calculate_individual_worktime(self):
         """esse metodo percorre a populacao e verifica o makespan e worktime para cada maquina em cada individuo
@@ -98,13 +105,15 @@ class GenerationTool:
         """Este metodo gera a matriz de probabilidades
 
         """
-        for op in self.ordered_pop[:self.best_candidates_len]:
+        for op in self.ordered_pop[:self.best_matrix_len]:
             for i in range(len(op['individual'])):
                 self.pb[i][op['individual'][i]] += 1
 
     def ajust_zero_elements(self):
         for op in self.ordered_pop:
+            print("pb line")
             for i in range(len(op['individual'])):
+                print(self.pb[i])
                 if self.pb[i][op['individual'][i]] == 0:
                     self.pb[i][op['individual'][i]] += 0.1
 
@@ -116,7 +125,7 @@ class GenerationTool:
         """Este metodo usa a selecao por roleta para gerar um novo individuo
 
         Arguments:
-            lista {lista de int} -- lista do workload das maquinas
+            lista {lista de int} -- lista de quantas vezes aquele processo apareceu naquela maquina
 
         Returns:
             [int] -- posicao do individuo selecionado na lista
@@ -129,7 +138,49 @@ class GenerationTool:
             if current > pick:
                 return v
 
-    def update_new_pop(self, new_individual):
+    def tournament_selection(self, lista):
+        """Este metodo usa a selecao por torneio para gerar um novo individuo
+
+        Arguments:
+            lista {lista de int} -- lista de quantas vezes aquele processo apareceu naquela maquina
+
+        Returns:
+            [int] -- posicao do individuo selecionado na lista
+        """
+        k = int(len(lista)/2)
+
+        tournament_list = []
+        enum_list = list(enumerate(lista))
+
+        for _ in range(k):
+            tournament_list.append(random.choice(enum_list))
+        
+        tournament_list = sorted(tournament_list, key=lambda x:x[1], reverse=True)
+        return tournament_list[0][0]
+
+
+    def tournament_selection_modified(self, lista):
+        """Este metodo usa a selecao por torneio para gerar um novo individuo
+
+        Arguments:
+            lista {lista de int} -- lista de quantas vezes aquele processo apareceu naquela maquina
+
+        Returns:
+            [int] -- posicao do individuo selecionado na lista
+        """
+        k = int(len(lista)/4)
+
+        tournament_list = []
+        enum_list = sorted(list(enumerate(lista)), key=lambda x:x[1], reverse=True)
+
+        for pos in range(k):
+            tournament_list.append(enum_list[pos])
+        
+        
+        return random.choice(tournament_list)[0]
+
+
+    def update_new_pop(self, new_individual, count):
         """Este metodo insere o novo individuo na populacao
 
         Arguments:
@@ -145,13 +196,16 @@ class GenerationTool:
         #    machine_job_relationship, new_individual))
         #
         
-        self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
+        #   self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
         #for i in range(len(self.ordered_pop)-1,0,-1):#pegar algum dos 5% pior na sorte e substituir se for melhor
             #print("i['makespan']:", i['makespan'][0])
             #print("self.get_population_worktime(machine_job_relationship, new_individual):", self.get_population_worktime(machine_job_relationship, new_individual)['makespan'][0])
-        if self.ordered_pop[-1]['makespan'][0] > self.get_population_worktime(machine_job_relationship, new_individual)['makespan'][0]:
-            print("trocou!")
-            self.ordered_pop[-1] = self.get_population_worktime(machine_job_relationship, new_individual)
+
+        if self.ordered_pop[self.best_candidates_len + count]['makespan'][0] > self.get_population_worktime(machine_job_relationship, new_individual)['makespan'][0] and random.random() > 0.5:
+            #print("trocou na pos: %d" % (self.best_candidates_len + count))
+            #print("len ordered pop: %d" % len(self.ordered_pop))
+            self.ordered_pop[self.best_candidates_len + count] = self.get_population_worktime(machine_job_relationship, new_individual)
+
             
 
 
@@ -176,14 +230,15 @@ class GenerationTool:
         self.generate_matrix()
         #self.ajust_zero_elements()
         #print("PROBABILISTC MATRIX")
-        # self.print_matrix()
-        print("GENERATING THE NEW INDIVIDUALS AND ADDING TO THE NEW POPULATION")
-        for i in range(self.new_pop_len):
+        #self.print_matrix()
+        #print("GENERATING THE NEW INDIVIDUALS AND ADDING TO THE NEW POPULATION")
+        for i in range(self.best_candidates_len_c):
             new_individual = []
             for j in self.pb:
-                new_individual.append(self.wheel_selection(j))
+                new_individual.append(self.tournament_selection(j))
             #print("new individual:", new_individual)
-            self.update_new_pop(new_individual)
+            #passar o i e sair verificando se aquele gerado e melhor que o cara da posicao best + i
+            self.update_new_pop(new_individual, i)
         self.ordered_pop = self.order_population_by_worktime(self.ordered_pop)
         self.populations_makespan[num_gen +
                                   1].append(self.ordered_pop[-1]['makespan'][0])
