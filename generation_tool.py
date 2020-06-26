@@ -15,11 +15,11 @@ class GenerationTool:
         self.ordered_pop = {}
         self.pb = []
         self.best_matrix_len = int((len(
-            population) - math.floor(0.7*len(population)))/10)
+            population) - math.floor(0.3*len(population)))/10)
         self.best_candidates_len = int((len(
-            population) - math.floor(0.5*len(population)))/10)
+            population) - math.floor(0.7*len(population)))/10)
         self.best_candidates_len_c = int((len(
-            population) - math.floor(0.5*len(population)))/10)
+            population) - math.floor(0.3*len(population)))/10)
         print("BEST MATRIX LEN:" + str(self.best_matrix_len))
         print("BEST CANDIDATES LEN:" + str(self.best_candidates_len))
         print("BEST CANDIDATES LEN C:" + str(self.best_candidates_len_c))

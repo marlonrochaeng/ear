@@ -10,7 +10,7 @@ iterations = [5000]
 
 pop_size = [1000]
 
-files = get_files()[1::]
+files = sorted(get_files())[1::]
 
 print(files)
 
