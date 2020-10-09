@@ -7,6 +7,8 @@ u_c_hihi
     last_release                 *16615723
         40/60                    *16621617
         50/50                    *16581372
+    50/50 guloso                  16546739
+                                  
 
 u_c_lohi
     literatura entre        239260 e 337121
@@ -14,6 +16,8 @@ u_c_lohi
     last_release                    *357657
         40/60                       *358202
         50/50                       *357185
+    50/50 estrategia gulosa          355518
+        matriz 30%                   349102
 
 
 u_c_hilo
@@ -23,6 +27,7 @@ u_c_hilo
         40/60                      *432282
         50/50                      *414573
             torneio                *502764
+        50/50 guloso                412859
 
 
 u_c_lolo
@@ -32,4 +37,5 @@ u_c_lolo
         40/60                 *12193
         50/50                 *11857
             torneio           *13755
+        50/50 guloso           11835
 

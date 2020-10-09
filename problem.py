@@ -35,7 +35,7 @@ def schedule(file_name):
         for pop in pop_size:
             population = []
             for i in range(pop*10):
-                population.append(generate_population(num_jobs, num_machines))
+                population.append(generate_population(num_jobs, num_machines, wt))
             
 
             g = GenerationTool(num_jobs, num_machines, population,

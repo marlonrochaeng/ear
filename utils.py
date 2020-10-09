@@ -20,7 +20,7 @@ def get_instance(instance):
     # return 24,8
 
 
-def generate_population(num_jobs, num_machines):
+def generate_population(num_jobs, num_machines, wt):
     """Esse metodo retorna uma geracao de jobs alocados em maquinas
 
     Arguments:
@@ -32,7 +32,28 @@ def generate_population(num_jobs, num_machines):
 
     gerador = rg[0]
 
-    gen = [gerador.integers(0, num_machines) for i in range(num_jobs)]
+    gen = []
+
+    processos = wt.copy()
+
+    temp = {i: 0 for i in range(num_machines)}
+    #temp = [0 for i in range(num_machines)]
+
+    for i in range(num_jobs):
+        processo = processos.pop(randint(0,len(processos)-1))
+
+        key, value = min(temp.items(), key=lambda x: x[1])
+        temp[key] = temp[key] + processo
+
+        #print("Temp:\n")
+        #print(temp)
+
+        #print("Menor maquina e valor adicionado:\n")
+        #print(key, value)
+
+        gen.append(key)
+
+    #gen = [gerador.integers(0, num_machines) for i in range(num_jobs)]
     return gen
 
 
